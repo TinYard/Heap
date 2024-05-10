@@ -1,4 +1,5 @@
 ﻿using Heap.Interfaces;
+using System.ComponentModel;
 
 namespace Heap.Services;
 
@@ -17,10 +18,16 @@ public class DefaultCrushable(string[]? input) : ICrushable
         var output = Activator.CreateInstance<T>();
         Type crusherType = typeof(T);
         var crusherProperties = crusherType.GetProperties();
-        for(int i = 0; i < _input.Length - 1; i++)
+        for(int i = 0; i < _input.Length - 1; i+= 2)
         {
-            var property = crusherProperties.First(x => x.Name == _input[i].Replace("--", ""));
-            property.SetValue(output, _input[i + 1]);
+            var propertyName = _input[i].Replace("--", "");
+            var propertyValue = _input[i + 1];
+
+            var property = crusherProperties.First(x => x.Name == propertyName);
+            var propertyType = property.PropertyType;
+
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyType);
+            property.SetValue(output, typeConverter.ConvertFrom(propertyValue));
         }
 
         return output;
