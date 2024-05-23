@@ -16,7 +16,7 @@ Heap intends to be a super simple, no thrills Command Line arguments parser. It'
 ```csharp
 void Main(string[] args)
 {
-    var options = Heap.Crush(args).As<ConfigurationOptions>();
+    var options = Heap.Crush(args).Into<ConfigurationOptions>();
 
     // ...
 }
