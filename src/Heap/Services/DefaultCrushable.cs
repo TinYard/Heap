@@ -27,6 +27,9 @@ public class DefaultCrushable(string[]? input) : ICrushable
             var propertyType = property.PropertyType;
 
             TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyType);
+            if (!typeConverter.IsValid(propertyValue))
+                continue;
+
             property.SetValue(output, typeConverter.ConvertFrom(propertyValue));
         }
 
