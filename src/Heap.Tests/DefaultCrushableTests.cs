@@ -44,6 +44,31 @@ public class DefaultCrushableTests
         result!.Volume.Should().Be(10.923489823432234234);
         result!.Hex.Should().Be('f');
     }
+
+    [Fact]
+    public void DefaultCrushable_Does_Not_Throw_On_Bad_Parse()
+    {
+        var crushable = new DefaultCrushable([
+            "--Header", "hello",
+            "--Ready", "22",
+            ]);
+
+        Action act = () => crushable.Into<SomeSimpleObject>();
+        act.Should().NotThrow<Exception>();
+    }
+
+    [Fact]
+    public void DefaultCrushable_On_Bad_Parse_Value_Is_Default()
+    {
+        var crushable = new DefaultCrushable([
+            "--Header", "hello",
+            "--Ready", "22",
+            ]);
+
+        var result = crushable.Into<SomeSimpleObject>();
+        result.Should().NotBeNull();
+        result!.Ready.Should().Be(default);
+    }
 }
 
 internal class SomeSimpleObject
