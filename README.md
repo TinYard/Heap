@@ -7,6 +7,7 @@ Heap helps you manage all of your CLI options
 - [Heap](#heap)
   - [Contents](#contents)
   - [How to use Heap](#how-to-use-heap)
+  - [Invalid parsing](#invalid-parsing)
 
 ## How to use Heap
 
@@ -25,3 +26,13 @@ private class ConfigurationOptions(bool enableFeatureA);
 
 When users interact with the above program, all they would need to provide when running it in their command line arguments is:
 `--enableFeatureA true`
+
+## Invalid parsing
+
+If Heap fails to parse the input into its property, then it will set it to the default value.
+
+For example (using the `ConfigurationOptions` type from [above](#how-to-use-heap)):
+
+`--enableFeatureA "22"`
+
+will set `ConfigurationOptions.enableFeatureA` to `false`.
