@@ -4,6 +4,8 @@
 name: .NET Release NuGe
 
 on:
+  push:
+    branches: [ "feat/release-nuget"]
   release:
     types: [ "published" ]
 
